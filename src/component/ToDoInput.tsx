@@ -38,6 +38,7 @@ const ToDoInput: React.FC =()=>{
                 <Button onClick={addNewToDoItem}> add </Button>
             </div>
             <span
+                style={{color:'red'}}
                 hidden={inputValue!==""}
             >
                 you should enter any text to save new item!

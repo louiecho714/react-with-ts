@@ -1,15 +1,19 @@
 import { FunctionComponent,useContext } from "react";
 import { ToDoItemModel } from "../model/ToDoItemModel";
 import { ToDoContext } from "../store/ToDoReducer";
-import { ToggleToDoItem} from'../store/Actions';
+import { ToggleToDoItem,DeleteToDoItem} from'../store/Actions';
+import { Button} from'antd';
 
 const ToDoItem:FunctionComponent<ToDoItemModel> =(toDoItem:ToDoItemModel)=>{
 
     const {dispatch} = useContext(ToDoContext);
     
     function DispatchToggleToDoItem(){
-        console.log("Dispatch ToggleToDoItem !")
         dispatch(ToggleToDoItem(toDoItem.id))
+    }
+
+    const DispatchDeleteToDoItem = () => {
+        dispatch(DeleteToDoItem(toDoItem.id))
     }
 
     const style = {
@@ -22,8 +26,9 @@ const ToDoItem:FunctionComponent<ToDoItemModel> =(toDoItem:ToDoItemModel)=>{
         <li>
             <div>
                 <span onClick={DispatchToggleToDoItem} style={style}>
-                    {toDoItem.task}
+                    {toDoItem.task} 
                 </span>
+                <Button onClick={DispatchDeleteToDoItem}>delete</Button>
             </div>
         </li>
     )

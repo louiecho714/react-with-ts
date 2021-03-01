@@ -1,7 +1,7 @@
  
 import React from 'react';
 import { Action } from './Action';
-import { AddToDoItemAction,ToggleToDoItemAction, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM } from './Actions';
+import { AddToDoItemAction,ToggleToDoItemAction, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM } from './Actions';
 import {ToDoItemModel} from '../model/ToDoItemModel'
 import {ToDoState} from '../model/ToDoState'
 import {ToDoContextModel} from '../model/ToDoContextModel'
@@ -28,7 +28,7 @@ export const AddTodoItemReducer = (state:ToDoState,action:AddToDoItemAction) =>{
 }
 
 //Toggle task reducer
-export const ToggleToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) =>{
+export const ToggleToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) =>{   
     return {
         ...state,
         ToDoItems: state.ToDoItems.map( 
@@ -41,6 +41,17 @@ export const ToggleToDoItemReducer = (state:ToDoState,action:ToggleToDoItemActio
     }
 }
 
+//Delete task reducer
+export const DeleteToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) =>{
+    return {
+        ...state,
+        ToDoItems: state.ToDoItems.filter( 
+            (el) => el.id !== action.payload.removeToDoItem
+        )    
+    }
+}
+
+
 //root AddTodoItemReducer
 export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
     switch(action.type){
@@ -48,9 +59,11 @@ export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
             return AddTodoItemReducer(state,action);
         
         case TOGGLE_TO_DO_ITEM: 
-            console.log("TOGGLE_TO_DO_ITEM")
             return ToggleToDoItemReducer(state,action);
         
+        case DELETE_TO_DO_ITEM: 
+            return DeleteToDoItemReducer(state,action);    
+
         default:
             return state;    
     }

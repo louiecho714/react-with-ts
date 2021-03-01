@@ -11,9 +11,9 @@ const ToDoWizard: FunctionComponent =()=>{
     return(
         <ToDoContext.Provider value={{state,dispatch}}>
             <div className="container">
-                <p className="todo-logo">
+                <h1>
                     Todo list with React hooks for
-                </p>
+                </h1>
                 <ToDoInput/>
                 <ToDoList/>
 
