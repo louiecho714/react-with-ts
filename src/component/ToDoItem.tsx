@@ -6,14 +6,22 @@ import { ToggleToDoItem} from'../store/Actions';
 const ToDoItem:FunctionComponent<ToDoItemModel> =(toDoItem:ToDoItemModel)=>{
 
     const {dispatch} = useContext(ToDoContext);
+    
     function DispatchToggleToDoItem(){
+        console.log("Dispatch ToggleToDoItem !")
         dispatch(ToggleToDoItem(toDoItem.id))
     }
+
+    const style = {
+        color: toDoItem.isDone ? 'red' : 'blue',
+        textDecorationLine: toDoItem.isDone ?  'line-through' : 'none'
+    }
+
 
     return (
         <li>
             <div>
-                <span onClick={DispatchToggleToDoItem}>
+                <span onClick={DispatchToggleToDoItem} style={style}>
                     {toDoItem.task}
                 </span>
             </div>

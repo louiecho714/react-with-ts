@@ -1,4 +1,4 @@
-
+ 
 import React from 'react';
 import { Action } from './Action';
 import { AddToDoItemAction,ToggleToDoItemAction, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM } from './Actions';
@@ -48,6 +48,7 @@ export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
             return AddTodoItemReducer(state,action);
         
         case TOGGLE_TO_DO_ITEM: 
+            console.log("TOGGLE_TO_DO_ITEM")
             return ToggleToDoItemReducer(state,action);
         
         default:
