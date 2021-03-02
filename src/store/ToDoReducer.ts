@@ -1,14 +1,16 @@
  
 import React from 'react';
 import { Action } from './Action';
-import { AddToDoItemAction,ToggleToDoItemAction, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM } from './Actions';
+import { AddToDoItemAction,ToggleToDoItemAction, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM, AddAllBooksAction, ADD_ALL_BOOKS, StartLoadingAction, StopLoadingAction, STOP_LOADING, START_LOADING } from './Actions';
 import {ToDoItemModel} from '../model/ToDoItemModel'
 import {ToDoState} from '../model/ToDoState'
 import {ToDoContextModel} from '../model/ToDoContextModel'
 
 
 export const initialState:ToDoState={
-    ToDoItems:[]
+    ToDoItems:[],
+    Loading:false,
+    Books:[],
 };
 
 export const ToDoContext:React.Context<ToDoContextModel> = React.createContext(
@@ -28,7 +30,7 @@ export const AddTodoItemReducer = (state:ToDoState,action:AddToDoItemAction) =>{
 }
 
 //Toggle task reducer
-export const ToggleToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) =>{   
+export const ToggleToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) => {   
     return {
         ...state,
         ToDoItems: state.ToDoItems.map( 
@@ -42,7 +44,7 @@ export const ToggleToDoItemReducer = (state:ToDoState,action:ToggleToDoItemActio
 }
 
 //Delete task reducer
-export const DeleteToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) =>{
+export const DeleteToDoItemReducer = (state:ToDoState,action:ToggleToDoItemAction) => {
     return {
         ...state,
         ToDoItems: state.ToDoItems.filter( 
@@ -51,6 +53,33 @@ export const DeleteToDoItemReducer = (state:ToDoState,action:ToggleToDoItemActio
     }
 }
 
+//to reset books
+export const AddAllBooksReducer = (state:ToDoState,action:AddAllBooksAction) => {
+    return {
+        ...state,
+        Books: action.payload.books   
+    }
+}
+
+//set loading status
+export const LoadingReducer = (state:ToDoState,action:StartLoadingAction|StopLoadingAction) => {
+    switch (action.type){
+        case START_LOADING:
+            return {
+                ...state,
+                Loading: true,
+            }
+        
+        case STOP_LOADING:
+            return {
+                ...state,
+                Loading: false,
+            }    
+        
+        default:
+            return state;    
+    }
+}
 
 //root AddTodoItemReducer
 export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
@@ -62,7 +91,16 @@ export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
             return ToggleToDoItemReducer(state,action);
         
         case DELETE_TO_DO_ITEM: 
-            return DeleteToDoItemReducer(state,action);    
+            return DeleteToDoItemReducer(state,action);
+        
+        case ADD_ALL_BOOKS:
+            return AddAllBooksReducer(state,action);    
+
+        case START_LOADING:
+            return LoadingReducer(state,action);     
+
+        case STOP_LOADING:
+            return LoadingReducer(state,action);     
 
         default:
             return state;    
