@@ -1,7 +1,7 @@
  
 import React from 'react';
 import { Action } from './Action';
-import { AddToDoItemAction,ToggleToDoItemAction, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM, AddAllBooksAction, ADD_ALL_BOOKS, StartLoadingAction, StopLoadingAction, STOP_LOADING, START_LOADING } from './Actions';
+import { AddToDoItemAction,ToggleToDoItemAction,DELETE_ALL_BOOKS, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM, AddAllBooksAction, ADD_ALL_BOOKS, StartLoadingAction, StopLoadingAction, STOP_LOADING, START_LOADING,DeleteAllBooksAction } from './Actions';
 import {ToDoItemModel} from '../model/ToDoItemModel'
 import {ToDoState} from '../model/ToDoState'
 import {ToDoContextModel} from '../model/ToDoContextModel'
@@ -53,13 +53,23 @@ export const DeleteToDoItemReducer = (state:ToDoState,action:ToggleToDoItemActio
     }
 }
 
-//to reset books
+//to get books
 export const AddAllBooksReducer = (state:ToDoState,action:AddAllBooksAction) => {
     return {
         ...state,
         Books: action.payload.books   
     }
 }
+
+//to reset books
+export const DeleteAllBooksReducer = (state:ToDoState,action:DeleteAllBooksAction) => {
+    return {
+        ...state,
+        Books: []
+    }
+}
+
+
 
 //set loading status
 export const LoadingReducer = (state:ToDoState,action:StartLoadingAction|StopLoadingAction) => {
@@ -94,7 +104,10 @@ export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
             return DeleteToDoItemReducer(state,action);
         
         case ADD_ALL_BOOKS:
-            return AddAllBooksReducer(state,action);    
+            return AddAllBooksReducer(state,action);
+        
+        case DELETE_ALL_BOOKS:
+            return DeleteAllBooksReducer(state,action);        
 
         case START_LOADING:
             return LoadingReducer(state,action);     

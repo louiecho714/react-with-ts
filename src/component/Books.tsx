@@ -7,7 +7,7 @@ const Books:React.FC = () => {
     const {state} = useContext(ToDoContext);
     
     return (
-        <Spin spinning={state.Loading}>
+        <Spin spinning={state.Loading} tip="Loading...">
             <List
             pagination={
                 {

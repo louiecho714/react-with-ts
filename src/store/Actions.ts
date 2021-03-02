@@ -6,6 +6,7 @@ export const ADD_TO_DO_ITEM = 'ADD_TO_DO_ITEM';
 export const TOGGLE_TO_DO_ITEM = 'TOGGLE_TO_DO_ITEM';
 export const DELETE_TO_DO_ITEM = 'DELETE_TO_DO_ITEM';
 export const ADD_ALL_BOOKS = 'ADD_ALL_BOOKS';
+export const DELETE_ALL_BOOKS = 'DELETE_ALL_BOOKS';
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
 
@@ -42,6 +43,11 @@ export interface StopLoadingAction extends Action {
     }
 }
 
+export interface DeleteAllBooksAction extends Action {
+    payload:{
+        books:BookModel[];
+    }
+}
 
 
 
@@ -82,6 +88,15 @@ export const AddAllBooks = (books:Array<BookModel>):AddAllBooksAction=>(
         type: ADD_ALL_BOOKS,
         payload:{
             books
+        }
+    }
+)
+
+export const DeleteAllBooks = ():DeleteAllBooksAction=>(
+    {
+        type: ADD_ALL_BOOKS,
+        payload:{
+            books:[]
         }
     }
 )
