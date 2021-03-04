@@ -1,10 +1,36 @@
-import React,{useReducer} from 'react';
+import React,{useReducer,useContext} from 'react';
 import ToDoWizard from './component/ToDoWizard';
-
+import {Location} from 'history';
 import './App.css';
 import {BackTop} from 'antd'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 import {ToDoReducer,initialState,AppContext} from './store/ToDoReducer';
+import LoginPage from './component/LoginPage'
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ children:React.Children, ...rest }) {
+
+  const {state} = useContext(AppContext);
+
+  return (
+    <Route
+      {...rest}
+      render={({ location:Location }) =>
+        auth.user ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
 
 function App() {
 
@@ -27,14 +53,11 @@ function App() {
           </div>
         </BackTop>
       <Router>
-          <Switch>
-            <Route path="/public">
-              <PublicPage />
-            </Route>
+          <Switch>       
             <Route path="/login">
               <LoginPage />
             </Route>
-            <PrivateRoute path="/protected">
+            <PrivateRoute path="/todos">
               <ToDoWizard/>
             </PrivateRoute>
           </Switch>
