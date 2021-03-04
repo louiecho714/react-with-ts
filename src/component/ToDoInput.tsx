@@ -1,11 +1,11 @@
 import React,{ useState,useContext} from "react";
 import { AddToDoItem } from "../store/Actions";
-import {ToDoContext} from '../store/ToDoReducer'
+import {AppContext} from '../store/ToDoReducer'
 import {Button}from 'antd'
 
 const ToDoInput: React.FC =()=>{
     const[inputValue,updateInputValue]= useState('');
-    const {dispatch} = useContext(ToDoContext);
+    const {dispatch} = useContext(AppContext);
 
     function handleEditInputValue(e: React.ChangeEvent<HTMLInputElement>){
         updateInputValue(e.target.value);

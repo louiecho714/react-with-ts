@@ -1,12 +1,12 @@
 import { FunctionComponent,useContext } from "react";
 import { ToDoItemModel } from "../model/ToDoItemModel";
-import { ToDoContext } from "../store/ToDoReducer";
+import { AppContext } from "../store/ToDoReducer";
 import { ToggleToDoItem,DeleteToDoItem} from'../store/Actions';
 import { Button} from'antd';
 
 const ToDoItem:FunctionComponent<ToDoItemModel> =(toDoItem:ToDoItemModel)=>{
 
-    const {dispatch} = useContext(ToDoContext);
+    const {dispatch} = useContext(AppContext);
     
     function DispatchToggleToDoItem(){
         dispatch(ToggleToDoItem(toDoItem.id))

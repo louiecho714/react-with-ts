@@ -11,9 +11,10 @@ export const initialState:ToDoState={
     ToDoItems:[],
     Loading:false,
     Books:[],
+    CurrentUser:null,
 };
 
-export const ToDoContext:React.Context<ToDoContextModel> = React.createContext(
+export const AppContext:React.Context<ToDoContextModel> = React.createContext(
     {
         state:initialState,
         dispatch: null,

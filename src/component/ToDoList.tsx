@@ -1,11 +1,11 @@
 
 import React,{ FunctionComponent ,useContext} from "react";
 import { ToDoItemModel } from "../model/ToDoItemModel";
-import { ToDoContext } from "../store/ToDoReducer";
+import { AppContext } from "../store/ToDoReducer";
 import ToDoItem from './ToDoItem';
 
 const ToDoList:FunctionComponent =()=>{
-    const {state} = useContext(ToDoContext);
+    const {state} = useContext(AppContext);
     return (
         <div>
             <ul>
