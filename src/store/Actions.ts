@@ -1,6 +1,7 @@
 import { Action } from "./Action";
 import {ToDoItemModel} from '../model/ToDoItemModel'
 import { BookModel } from "../model/BookModel";
+import {UserModel} from "../model/UserModel";
 
 export const ADD_TO_DO_ITEM = 'ADD_TO_DO_ITEM';
 export const TOGGLE_TO_DO_ITEM = 'TOGGLE_TO_DO_ITEM';
@@ -9,6 +10,9 @@ export const ADD_ALL_BOOKS = 'ADD_ALL_BOOKS';
 export const DELETE_ALL_BOOKS = 'DELETE_ALL_BOOKS';
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
+
+export const ADD_CURRENT_USER = 'ADD_CURRENT_USER'
+export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER'
 
 let nextToDoId: number = 0;
 
@@ -47,6 +51,15 @@ export interface DeleteAllBooksAction extends Action {
     payload:{
         books:BookModel[];
     }
+}
+
+export interface AddCurrentUserAction extends Action {
+    payload:{
+        user:UserModel;
+    }
+}
+export interface RemoveCurrentUserAction extends Action {
+    payload:{}
 }
 
 
@@ -116,5 +129,21 @@ export const StopLoading = ():StopLoadingAction=>(
         payload:{
             loading:false
         }
+    }
+)
+
+export const AddCurrentUser = (user:UserModel):AddCurrentUserAction=>(
+    {
+        type:ADD_CURRENT_USER,
+        payload:{
+            user:user
+        }
+    }
+)
+
+export const RemoveCurrentUser = ():RemoveCurrentUserAction=>(
+    {
+        type:REMOVE_CURRENT_USER,
+        payload:{},
     }
 )

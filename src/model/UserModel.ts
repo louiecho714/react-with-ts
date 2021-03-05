@@ -1,5 +1,5 @@
 export interface UserModel{
-    id: string;
-    name: string;
+    id: string|null;
+    name: string|null;
     token: string;
 }

@@ -1,7 +1,7 @@
  
 import React from 'react';
 import { Action } from './Action';
-import { AddToDoItemAction,ToggleToDoItemAction,DELETE_ALL_BOOKS, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM, AddAllBooksAction, ADD_ALL_BOOKS, StartLoadingAction, StopLoadingAction, STOP_LOADING, START_LOADING,DeleteAllBooksAction } from './Actions';
+import { AddToDoItemAction,ToggleToDoItemAction,DELETE_ALL_BOOKS, ADD_TO_DO_ITEM, TOGGLE_TO_DO_ITEM,DELETE_TO_DO_ITEM, AddAllBooksAction, ADD_ALL_BOOKS, StartLoadingAction, StopLoadingAction, STOP_LOADING, START_LOADING,DeleteAllBooksAction, ADD_CURRENT_USER, REMOVE_CURRENT_USER } from './Actions';
 import {ToDoItemModel} from '../model/ToDoItemModel'
 import {ToDoState} from '../model/ToDoState'
 import {ToDoContextModel} from '../model/ToDoContextModel'
@@ -92,6 +92,7 @@ export const LoadingReducer = (state:ToDoState,action:StartLoadingAction|StopLoa
     }
 }
 
+
 //root AddTodoItemReducer
 export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
     switch(action.type){
@@ -114,7 +115,19 @@ export function ToDoReducer(state:ToDoState,action:Action):ToDoState{
             return LoadingReducer(state,action);     
 
         case STOP_LOADING:
-            return LoadingReducer(state,action);     
+            return LoadingReducer(state,action);
+        
+        case ADD_CURRENT_USER:
+            return {
+                ...state,
+                CurrentUser: action.payload.user,
+            }
+        
+        case REMOVE_CURRENT_USER:
+            return {
+                ...state,
+                CurrentUser: null,
+            }    
 
         default:
             return state;    
