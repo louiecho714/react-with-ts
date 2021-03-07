@@ -1,7 +1,7 @@
 
 import React,{ FunctionComponent ,useContext} from "react";
 import { ToDoItemModel } from "../model/ToDoItemModel";
-import { AppContext } from "../store/ToDoReducer";
+import { AppContext } from "../store/Reducer";
 import ToDoItem from './ToDoItem';
 
 const ToDoList:FunctionComponent =()=>{

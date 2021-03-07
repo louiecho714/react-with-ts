@@ -3,9 +3,10 @@ import ToDoWizard from './component/ToDoWizard';
 import './App.css';
 import {BackTop} from 'antd'
 import {BrowserRouter as Router,Switch,Route,Redirect,RouteProps,RouteComponentProps,Link} from 'react-router-dom';
-import {ToDoReducer,initialState,AppContext} from './store/ToDoReducer';
+import {MainReducer,initialState,AppContext} from './store/Reducer';
 import LoginPage from './component/LoginPage'
 import BookPage from './component/BookPage';
+import {RemoveCurrentUser} from './store/Actions'
 
 
 
@@ -36,7 +37,12 @@ function PrivateRoute({children,...rest}: RouteProps) {
 
 function App() {
 
-  const [state,dispatch] = useReducer(ToDoReducer,initialState);
+  const [state,dispatch] = useReducer(MainReducer,initialState);
+
+
+  const logout=()=>{
+    dispatch(RemoveCurrentUser())
+  }
 
   return (
     <AppContext.Provider value={{state,dispatch}}>     
@@ -58,7 +64,7 @@ function App() {
           <ul>
             <li><Link to='/main'>todos</Link></li>
             <li><Link to='/books'>books</Link></li>
-            <li><Link to='/login'>logout</Link></li>
+            <li><a onClick={logout}>logout</a></li>
           </ul>
           <Switch>       
             <Route path="/login">
