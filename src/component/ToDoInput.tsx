@@ -1,7 +1,7 @@
 import React,{ useState,useContext} from "react";
 import { AddToDoItem } from "../store/Actions";
 import {AppContext} from '../store/Reducer'
-import {Button}from 'antd'
+import {Button,Input}from 'antd'
 
 const ToDoInput: React.FC =()=>{
     const[inputValue,updateInputValue]= useState('');
@@ -29,7 +29,7 @@ const ToDoInput: React.FC =()=>{
     return (
         <div>
             <div>
-                <input 
+                <Input 
                     type="text"
                     value={inputValue}
                     onChange={handleEditInputValue}

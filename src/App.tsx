@@ -1,6 +1,6 @@
 import React,{useReducer,useContext} from 'react';
 import ToDoWizard from './component/ToDoWizard';
-import './App.css';
+import './App.less';
 import {BackTop} from 'antd'
 import {BrowserRouter as Router,Switch,Route,Redirect,RouteProps,RouteComponentProps,Link} from 'react-router-dom';
 import {MainReducer,initialState,AppContext} from './store/Reducer';
