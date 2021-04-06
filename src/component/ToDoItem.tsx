@@ -1,19 +1,20 @@
-import { FunctionComponent,useContext } from "react";
 import { ToDoItemModel } from "../model/ToDoItemModel";
-import { AppContext } from "../store/Reducer";
-import { ToggleToDoItem,DeleteToDoItem} from'../store/Actions';
 import { Button} from'antd';
+import {
+    toggleTodo,
+    deleteTodo,
+} from '../store/todoSlice'
+import { useAppDispatch } from '../store/hooks'
 
-const ToDoItem:FunctionComponent<ToDoItemModel> =(toDoItem:ToDoItemModel)=>{
+const ToDoItem=(toDoItem:ToDoItemModel)=>{
+    const dispatch = useAppDispatch();
 
-    const {dispatch} = useContext(AppContext);
-    
-    function DispatchToggleToDoItem(){
-        dispatch(ToggleToDoItem(toDoItem.id))
+    function dispatchToggleToDoItem(){
+        dispatch(toggleTodo(toDoItem.id))
     }
 
-    const DispatchDeleteToDoItem = () => {
-        dispatch(DeleteToDoItem(toDoItem.id))
+    const dispatchDeleteToDoItem = () => {
+        dispatch(deleteTodo(toDoItem.id))
     }
 
     const style = {
@@ -25,10 +26,10 @@ const ToDoItem:FunctionComponent<ToDoItemModel> =(toDoItem:ToDoItemModel)=>{
     return (
         <li>
             <div>
-                <span onClick={DispatchToggleToDoItem} style={style}>
+                <span onClick={dispatchToggleToDoItem} style={style}>
                     {toDoItem.task} 
                 </span>
-                <Button onClick={DispatchDeleteToDoItem}>delete</Button>
+                <Button onClick={dispatchDeleteToDoItem}>delete</Button>
             </div>
         </li>
     )

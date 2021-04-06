@@ -2,8 +2,8 @@
 ** slice是toolkit的概念，他是把 Redux 原生的state、reducer、action都合在一包，並且叫它slice。
 */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BookModel } from "../model/BookModel";
 import { UserModel } from '../model/UserModel';
+import { RootState } from './store';
 
 export interface CurrentUserState {
     currentUser:UserModel|null;
@@ -31,6 +31,6 @@ export const currentUserSlice = createSlice({
   
   export const { addCurrentUser, removeCurrentUser } = currentUserSlice.actions;
   
-  
+  export const selectCurrentUser = (state: RootState) => state.currentUser.currentUser
   
   export default currentUserSlice.reducer;

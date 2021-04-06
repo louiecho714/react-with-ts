@@ -1,26 +1,27 @@
-import React,{useReducer,useContext} from 'react';
 import ToDoWizard from './component/ToDoWizard';
 import './App.css';
 import {BackTop} from 'antd'
 import {BrowserRouter as Router,Switch,Route,Redirect,RouteProps,RouteComponentProps,Link} from 'react-router-dom';
-import {MainReducer,initialState,AppContext} from './store/Reducer';
 import LoginPage from './component/LoginPage'
 import BookPage from './component/BookPage';
-import {RemoveCurrentUser} from './store/Actions'
+import {
+  removeCurrentUser,
+  selectCurrentUser
+} from './store/currentUserSlice'
+import { useAppSelector,useAppDispatch } from './store/hooks'
 
 
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
 function PrivateRoute({children,...rest}: RouteProps) {
-
-  const {state} = useContext(AppContext);
+  const currentUser = useAppSelector(selectCurrentUser);
  
   return (
     <Route
       {...rest}
       render={(routeProps:RouteComponentProps) =>
-        state.CurrentUser!=null ? (
+        currentUser!=null ? (
           children
         ) : (
           <Redirect
@@ -36,16 +37,15 @@ function PrivateRoute({children,...rest}: RouteProps) {
 }
 
 function App() {
-
-  const [state,dispatch] = useReducer(MainReducer,initialState);
-
+  
+  const dispatch = useAppDispatch();
 
   const logout=()=>{
-    dispatch(RemoveCurrentUser())
+    dispatch(removeCurrentUser())
   }
 
   return (
-    <AppContext.Provider value={{state,dispatch}}>     
+    <>
       <BackTop>
           <div style={{
             height: 40,
@@ -64,7 +64,7 @@ function App() {
           <ul>
             <li><Link to='/main'>todos</Link></li>
             <li><Link to='/books'>books</Link></li>
-            <li><a onClick={logout}>logout</a></li>
+            <li><a onClick={logout} href="#logout">logout</a></li>
           </ul>
           <Switch>       
             <Route path="/login">
@@ -79,7 +79,7 @@ function App() {
           </Switch>
                 
       </Router>
-    </AppContext.Provider>
+    </>
   );
 }
 

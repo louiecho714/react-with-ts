@@ -1,15 +1,16 @@
 
-import React,{ FunctionComponent ,useContext} from "react";
 import { ToDoItemModel } from "../model/ToDoItemModel";
-import { AppContext } from "../store/Reducer";
-import ToDoItem from './ToDoItem';
 
-const ToDoList:FunctionComponent =()=>{
-    const {state} = useContext(AppContext);
+import ToDoItem from './ToDoItem';
+import { selectTodos } from '../store/todoSlice'
+import { useAppSelector } from '../store/hooks'
+const ToDoList =()=>{
+    const todos = useAppSelector(selectTodos);
+
     return (
         <div>
             <ul>
-                {state.ToDoItems.map((toDoItem:ToDoItemModel,index:number)=>(
+                {todos.map((toDoItem:ToDoItemModel,index:number)=>(
                     <ToDoItem
                         key={index}
                         id={toDoItem.id}

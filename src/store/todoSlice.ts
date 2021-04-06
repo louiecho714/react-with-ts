@@ -1,17 +1,19 @@
 /*
 ** slice是toolkit的概念，他是把 Redux 原生的state、reducer、action都合在一包，並且叫它slice。
 */
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from './store';
+import {  createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
 import { ToDoItemModel } from '../model/ToDoItemModel';
 
 
 export interface TodoState {
     todos:ToDoItemModel[];
+    currentId: number;
 }
 
 const initialState: TodoState = {
     todos: [],
+    currentId: 0,
 };
 
 
@@ -20,8 +22,9 @@ export const todoSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    addTodo: (state,action:PayloadAction<ToDoItemModel>) => {
-      state.todos=[...state.todos,action.payload]
+    addTodo: (state,action:PayloadAction<string>) => {
+      state.todos=[...state.todos,{id:state.currentId,task:action.payload,isDone:false}]
+      state.currentId=state.currentId+1
     },
     toggleTodo: (state,action:PayloadAction<number>) => {
         state.todos=state.todos.map(
@@ -44,6 +47,6 @@ export const todoSlice = createSlice({
 
 export const { addTodo, toggleTodo, deleteTodo } = todoSlice.actions;
 
-
+export const selectTodos= (state: RootState) => state.todo.todos
 
 export default todoSlice.reducer;

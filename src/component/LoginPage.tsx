@@ -1,19 +1,17 @@
 import {Button,Divider,Input} from 'antd';
-import { AddCurrentUser } from '../store/Actions';
-import {useContext,useState} from 'react';
-import { AppContext } from "../store/Reducer";
+import {useState} from 'react';
 import {useHistory} from 'react-router-dom'
-
+import { addCurrentUser } from '../store/currentUserSlice'
+import { useAppDispatch } from '../store/hooks'
 const LoginPage = () => {
-
-    const {dispatch} = useContext(AppContext);
+    const dispatch = useAppDispatch();
     const [account,setAccount]= useState("");
     const [password,setPassword]= useState("");
     const history = useHistory();
 
 
     const login = ()=>{
-        dispatch(AddCurrentUser({token:"XXXXXOOOO",id:"id:"+account,name:account}));
+        dispatch(addCurrentUser({token:"XXXXXOOOO",id:"id:"+account,name:account}))
         history.push("/main")
     }
 

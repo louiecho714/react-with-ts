@@ -1,11 +1,12 @@
-import React,{ useState,useContext} from "react";
-import { AddToDoItem } from "../store/Actions";
-import {AppContext} from '../store/Reducer'
+import React,{ useState} from "react";
 import {Button}from 'antd'
-
-const ToDoInput: React.FC =()=>{
+import {
+    addTodo,
+} from '../store/todoSlice'
+import { useAppDispatch } from '../store/hooks'
+const ToDoInput =()=>{
+    const dispatch = useAppDispatch();
     const[inputValue,updateInputValue]= useState('');
-    const {dispatch} = useContext(AppContext);
 
     function handleEditInputValue(e: React.ChangeEvent<HTMLInputElement>){
         updateInputValue(e.target.value);
@@ -13,7 +14,7 @@ const ToDoInput: React.FC =()=>{
 
     function addNewToDoItem(){
         if (inputValue){
-            dispatch(AddToDoItem(inputValue));
+            dispatch(addTodo(inputValue))
             updateInputValue("")
         }
     }

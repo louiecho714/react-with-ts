@@ -1,7 +1,8 @@
 /*
 ** slice是toolkit的概念，他是把 Redux 原生的state、reducer、action都合在一包，並且叫它slice。
 */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 export interface LoadingState {
     loading: boolean;
@@ -20,7 +21,7 @@ export const loadingSlice = createSlice({
             state.loading = true;
         },
         stopLoading: (state) => {
-            state.loading = true;
+            state.loading = false;
         },
     },
 
@@ -28,6 +29,6 @@ export const loadingSlice = createSlice({
 
 export const { startLoading, stopLoading } = loadingSlice.actions;
 
-
+export const selectLoading = (state: RootState) => state.loading.loading
 
 export default loadingSlice.reducer;
